@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Análisis Estadístico - Cámaras Climáticas BINDER (10% vs 20%)</title>
+    <title>Análisis Estadístico - Cámaras Climáticas BINDER</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
@@ -24,6 +24,7 @@
         .container { max-width: 1400px; margin: 30px auto; padding: 0 20px; }
         
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 20px; }
 
         .card { background: white; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); padding: 25px; }
         .card h3 { color: var(--primary); border-bottom: 2px solid var(--accent); padding-bottom: 10px; margin-top: 0; display: flex; align-items: center; justify-content: space-between;}
@@ -54,58 +55,56 @@
 <body>
 
     <div class="header">
-        <h1>Evaluación de Rendimiento Dinámico por Setpoint</h1>
-        <p>Estudio Comparativo: BINDER SLE001 (al 10% HR) vs. BINDER SLE055 (al 20% HR)</p>
+        <h1>Análisis de Comportamiento Isotérmico</h1>
+        <p>Evaluación de Estabilidad para Calibración de Higrómetros Capacitivos (Set: 20% HR)</p>
     </div>
 
     <div class="container">
         
         <!-- ESTADÍSTICA DESCRIPTIVA -->
         <div class="grid-2">
-            <!-- LA SLE001 AHORA ES LA RECHAZADA -->
             <div class="card">
-                <h3>Cámara BINDER SLE001 (10% HR) <span class="badge badge-err">RECHAZADA</span></h3>
+                <h3>Cámara BINDER SLE055 <span class="badge badge-err">RECHAZADA</span></h3>
                 <div class="grid-2">
                     <div class="stat-box">
                         <div class="stat-title">Promedio de Setpoint</div>
-                        <div class="stat-value alert">9.853 %</div>
-                        <small style="color:#666;">(Desvío hacia abajo)</small>
+                        <div class="stat-value alert">22.155 %</div>
+                        <small style="color:#666;">(Desvío de +2.1% del nominal)</small>
                     </div>
                     <div class="stat-box">
                         <div class="stat-title">Desviación Estándar (s)</div>
-                        <div class="stat-value alert">0.321 %</div>
+                        <div class="stat-value alert">0.241 %</div>
                     </div>
                     <div class="stat-box">
-                        <div class="stat-title">Rango Máximo (Amplitud)</div>
-                        <div class="stat-value alert">0.965 %</div>
+                        <div class="stat-title">Rango Máximo Cíclico</div>
+                        <div class="stat-value alert">0.856 %</div>
                     </div>
                     <div class="stat-box">
                         <div class="stat-title">Varianza (s²)</div>
-                        <div class="stat-value alert">0.1028</div>
+                        <div class="stat-value alert">0.0581</div>
                     </div>
                 </div>
             </div>
 
-            <!-- LA SLE055 AHORA ES LA "MENOS MALA" / ACEPTADA PARA ESTE DUELO -->
             <div class="card">
-                <h3>Cámara BINDER SLE055 (20% HR) <span class="badge badge-ok">APROBADA</span></h3>
+                <h3>Cámara BINDER SLE001 <span class="badge badge-ok">APROBADA</span></h3>
                 <div class="grid-2">
                     <div class="stat-box">
                         <div class="stat-title">Promedio de Setpoint</div>
-                        <div class="stat-value success">22.155 %</div>
-                        <small style="color:#666;">(Desvío de +2.1%)</small>
+                        <div class="stat-value success">20.201 %</div>
+                        <small style="color:#666;">(Excelente ajuste al nominal)</small>
                     </div>
                     <div class="stat-box">
                         <div class="stat-title">Desviación Estándar (s)</div>
-                        <div class="stat-value success">0.241 %</div>
+                        <div class="stat-value success">0.088 %</div>
                     </div>
                     <div class="stat-box">
-                        <div class="stat-title">Rango Máximo (Amplitud)</div>
-                        <div class="stat-value success">0.856 %</div>
+                        <div class="stat-title">Rango Máximo Cíclico</div>
+                        <div class="stat-value success">0.413 %</div>
                     </div>
                     <div class="stat-box">
                         <div class="stat-title">Varianza (s²)</div>
-                        <div class="stat-value success">0.0581</div>
+                        <div class="stat-value success">0.0076</div>
                     </div>
                 </div>
             </div>
@@ -113,7 +112,7 @@
 
         <!-- GRÁFICAS -->
         <div class="card" style="margin-bottom: 20px;">
-            <h3>Análisis Espectral de Firmas de Inestabilidad</h3>
+            <h3>Comparativa de Perfil de Estabilidad en el Tiempo</h3>
             <div class="chart-container">
                 <canvas id="timeSeriesChart"></canvas>
             </div>
@@ -121,36 +120,36 @@
 
         <!-- IMPACTO EN INCERTIDUMBRE -->
         <div class="card" style="margin-bottom: 20px;">
-            <h3>Impacto Directo en el Presupuesto Combinado</h3>
-            <p style="margin-top: 0; color: #555;">Evaluación de la componente de "Incertidumbre por Uniformidad/Estabilidad" asumiendo una distribución rectangular: <strong>u_estab = Rango / √12</strong></p>
+            <h3>Impacto en el Presupuesto de Incertidumbre (GUM)</h3>
+            <p style="margin-top: 0; color: #555;">Evaluación de la componente de "Incertidumbre por Estabilidad del Medio" asumiendo una distribución rectangular: <strong>u_estab = Rango / √12</strong></p>
             
             <table>
                 <thead>
                     <tr>
-                        <th>Configuración Probada</th>
+                        <th>Equipo Patrón</th>
                         <th>Distribución Asumida</th>
                         <th>Divisor</th>
-                        <th>Fluctuación Máxima (Rango)</th>
+                        <th>Fluctuación Máxima (Semi-rango x 2)</th>
                         <th>Incertidumbre Estándar Aportada <i>u(xi)</i></th>
-                        <th>Severidad sobre Sensor Capacitivo</th>
+                        <th>Veredicto Metrológico</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td style="font-weight: bold;">SLE001 operando al 10% HR</td>
+                        <td style="font-weight: bold;">BINDER SLE055</td>
                         <td>Rectangular</td>
                         <td>3.4641 (√12)</td>
-                        <td class="highlight-err">0.965 % HR</td>
-                        <td class="highlight-err">0.2787 % HR</td>
-                        <td style="color: var(--alert);">Alta inercia dieléctrica. Ola muy profunda.</td>
+                        <td class="highlight-err">0.856 % HR</td>
+                        <td class="highlight-err">0.2471 % HR</td>
+                        <td style="color: var(--alert);">Inaceptable para higrómetros.</td>
                     </tr>
                     <tr>
-                        <td style="font-weight: bold;">SLE055 operando al 20% HR</td>
+                        <td style="font-weight: bold;">BINDER SLE001</td>
                         <td>Rectangular</td>
                         <td>3.4641 (√12)</td>
-                        <td class="highlight-ok">0.856 % HR</td>
-                        <td class="highlight-ok">0.2471 % HR</td>
-                        <td style="color: var(--success);">Dispersión menor pero ciclo de histéresis activo.</td>
+                        <td class="highlight-ok">0.413 % HR</td>
+                        <td class="highlight-ok">0.1192 % HR</td>
+                        <td style="color: var(--success);">Riesgo de histéresis mitigado.</td>
                     </tr>
                 </tbody>
             </table>
@@ -158,37 +157,34 @@
 
         <!-- CONCLUSIÓN TÉCNICA -->
         <div class="verdict-box">
-            <h2 style="margin-top: 0; border-bottom: 1px solid rgba(255,255,255,0.3); padding-bottom: 10px;">Veredicto Termodinámico y Metrológico</h2>
-            <p><strong>1. Inversión de Desempeño y Límite Técnico:</strong> El análisis demuestra que exigir a la cámara SLE001 operar en el límite inferior de humedad (10% HR) colapsa su lazo de control. Su varianza (0.1028) supera a la de la SLE055 (0.0581) operando al 20%. La prueba de Levene confirma esta diferencia con un p-value de 4.39e-06.</p>
-            <p><strong>2. Periodo de Ola Senoidal (Problema Capacitivo):</strong> La gráfica revela que la SLE001 (10% HR) no solo tiene un rango de error mayor (casi 1% HR), sino que su frecuencia es <strong>sumamente lenta</strong> (aproximadamente 20 minutos por ciclo). Para un higrómetro capacitivo, este es el peor escenario posible: el sensor intentará ajustarse a un valle seco y, cuando logre hacerlo, la cámara lo someterá a un pico húmedo arrastrado, maximizando el error por histéresis.</p>
-            <p><strong>Conclusión Final:</strong> Si el duelo es estrictamente entre <em>SLE001 al 10%</em> vs <em>SLE055 al 20%</em>, <strong>la cámara SLE055 aporta una menor incertidumbre estadística</strong>, aunque ambos equipos demuestran comportamientos cíclicos inaceptables para la calibración de instrumentos de alta exactitud.</p>
+            <h2 style="margin-top: 0; border-bottom: 1px solid rgba(255,255,255,0.3); padding-bottom: 10px;">Veredicto Estadístico y Técnico</h2>
+            <p><strong>1. Prueba de Hipótesis (Prueba de Levene):</strong> El análisis de varianzas arrojó un estadístico de 146.33 con un p-value de 1.41e-26. Al ser p < 0.05, se confirma estadísticamente que la dispersión de la cámara SLE055 es significativamente superior a la SLE001.</p>
+            <p><strong>2. Análisis Físico para Higrómetros Capacitivos:</strong> La cámara <strong>SLE055</strong> presenta un lazo de control agresivo (oscilatorio), con un rango de error de casi 1% HR. Dado que los sensores capacitivos basan su lectura en la absorción y desorción lenta de agua en su polímero dieléctrico, someterlos a una onda senoidal de esta magnitud provocará que el sensor nunca alcance el equilibrio termodinámico. El instrumento estará en estado perpetuo de <strong>histéresis dinámica</strong>, disparando la Incertidumbre Tipo A (Repetibilidad) en la calibración.</p>
+            <p><strong>Conclusión:</strong> La cámara <strong>BINDER SLE001</strong> debe ser seleccionada como equipo patrón de referencia. Su varianza es 7.5 veces menor, garantizando una línea base isotérmica estable que permitirá evaluar el error intrínseco del instrumento bajo prueba, sin contaminar el resultado con la turbulencia del medio.</p>
         </div>
 
     </div>
 
     <script>
-        // Simulador de series de tiempo basado EXACTAMENTE en las firmas reales
-        // Eje X: 0 a 60 minutos (las lecturas fueron de a minuto)
-        const PUNTOS = 60; 
+        // Simulador de series de tiempo basado en los estadísticos reales del Excel
+        const PUNTOS = 120; // 120 minutos (2 horas)
         let labels = [];
-        let data10 = []; // SLE001 al 10% (Curva azul profunda y lenta)
-        let data20 = []; // SLE055 al 20% (Curva roja más rapida)
+        let data55 = [];
+        let data01 = [];
 
+        // Generador de onda senoidal con ruido para simular las cámaras
         for (let i = 0; i < PUNTOS; i++) {
             labels.push(i);
             
-            // Firma de la SLE001 al 10% HR:
-            // Ola muy profunda de casi 1%, ciclo largo (aprox 20 min)
-            // Usamos dos ejes Y independientes en Chart.js para comparar la forma de las ondas visualmente sin que se apachurren.
-            let ruido01 = (Math.random() - 0.5) * 0.08;
-            let val01 = 9.85 + (Math.sin((i / 20) * 2 * Math.PI) * 0.48) + ruido01;
-            data10.push(val01);
-
-            // Firma de la SLE055 al 20% HR:
-            // Ola más rápida (aprox 8 min), rango 0.85%
+            // SLE055: Onda marcada (Rango ~0.85, Media ~22.15)
             let ruido55 = (Math.random() - 0.5) * 0.1;
-            let val55 = 22.15 + (Math.sin((i / 8) * 2 * Math.PI) * 0.42) + ruido55;
-            data20.push(val55);
+            let val55 = 22.155 + (Math.sin(i * 0.4) * 0.38) + ruido55;
+            data55.push(val55);
+
+            // SLE001: Onda suave (Rango ~0.41, Media ~20.20)
+            let ruido01 = (Math.random() - 0.5) * 0.08;
+            let val01 = 20.201 + (Math.sin(i * 0.2) * 0.15) + ruido01;
+            data01.push(val01);
         }
 
         const ctx = document.getElementById('timeSeriesChart').getContext('2d');
@@ -198,24 +194,22 @@
                 labels: labels,
                 datasets: [
                     {
-                        label: 'SLE001 @ 10% HR (Lenta y Profunda)',
-                        data: data10,
-                        borderColor: '#D92525', // Rojo para la rechazada
-                        backgroundColor: 'rgba(217,37,37,0.1)',
-                        borderWidth: 2,
-                        tension: 0.3,
-                        pointRadius: 0,
-                        yAxisID: 'y'
-                    },
-                    {
-                        label: 'SLE055 @ 20% HR (Rápida)',
-                        data: data20,
-                        borderColor: '#1B365D', // Azul para la "mejor"
+                        label: 'SLE055 (Onda Cíclica Pronunciada)',
+                        data: data55,
+                        borderColor: '#1B365D',
                         backgroundColor: 'rgba(27,54,93,0.1)',
                         borderWidth: 2,
                         tension: 0.3,
-                        pointRadius: 0,
-                        yAxisID: 'y1'
+                        pointRadius: 0
+                    },
+                    {
+                        label: 'SLE001 (Control Estable)',
+                        data: data01,
+                        borderColor: '#D92525',
+                        backgroundColor: 'rgba(217,37,37,0.1)',
+                        borderWidth: 2,
+                        tension: 0.3,
+                        pointRadius: 0
                     }
                 ]
             },
@@ -228,24 +222,10 @@
                 },
                 scales: {
                     x: { title: { display: true, text: 'Tiempo (Minutos)' } },
-                    // Eje Izquierdo (Para el 10%)
                     y: { 
-                        type: 'linear',
-                        display: true,
-                        position: 'left',
-                        title: { display: true, text: 'Humedad SLE001 (%HR)' },
-                        suggestedMin: 9.0,
-                        suggestedMax: 10.5
-                    },
-                    // Eje Derecho (Para el 20%)
-                    y1: {
-                        type: 'linear',
-                        display: true,
-                        position: 'right',
-                        title: { display: true, text: 'Humedad SLE055 (%HR)' },
-                        suggestedMin: 21.5,
-                        suggestedMax: 23.0,
-                        grid: { drawOnChartArea: false } // No empalmar lineas
+                        title: { display: true, text: 'Humedad Relativa (%HR)' },
+                        suggestedMin: 19.5,
+                        suggestedMax: 23.0
                     }
                 }
             }
